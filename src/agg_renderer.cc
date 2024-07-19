@@ -9,8 +9,6 @@
 zend_class_entry *agg_renderer_ce;
 zend_object_handlers agg_renderer_object_handlers;
 
-// Class methods
-
 PHP_METHOD(AggRenderer, __construct)
 {
     struct agg_renderer_object *obj;
@@ -19,7 +17,7 @@ PHP_METHOD(AggRenderer, __construct)
     zval* map_zval;
     zval* image_zval;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 2, 2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_OBJECT_OF_CLASS(map_zval, map_ce)
         Z_PARAM_OBJECT_OF_CLASS(image_zval, image_ce)
     ZEND_PARSE_PARAMETERS_END();
@@ -58,7 +56,7 @@ PHP_METHOD(AggRenderer, apply)
 
 // Reflection info
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_aggRenderer_construct, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_aggRenderer_construct, 0, 0, 2)
     ZEND_ARG_OBJ_INFO(0, map, Mapnik\\Map, 0)
     ZEND_ARG_OBJ_INFO(0, image, Mapnik\\Image, 0)
 ZEND_END_ARG_INFO()
@@ -73,19 +71,17 @@ zend_function_entry agg_renderer_methods[] = {
 
 // Internal object handling
 
-void free_agg_renderer(zend_object *object TSRMLS_DC)
+void free_agg_renderer(zend_object *object)
 {
-    agg_renderer_object *obj;
-    obj = fetch_agg_renderer_object(object);
+    agg_renderer_object *obj = fetch_agg_renderer_object(object);
     delete obj->agg_renderer;
-    zend_object_std_dtor(object TSRMLS_DC);
+    zend_object_std_dtor(object);
 }
 
-zend_object * create_agg_renderer(zend_class_entry *ce TSRMLS_DC) {
-    agg_renderer_object *intern;
-    intern = (agg_renderer_object*) ecalloc(1, sizeof(agg_renderer_object) + zend_object_properties_size(ce));
+zend_object * create_agg_renderer(zend_class_entry *ce) {
+    agg_renderer_object *intern = (agg_renderer_object*) ecalloc(1, sizeof(agg_renderer_object) + zend_object_properties_size(ce));
 
-    zend_object_std_init(&intern->std, ce TSRMLS_CC);
+    zend_object_std_init(&intern->std, ce);
     object_properties_init(&intern->std, ce);
 
     intern->std.handlers = &agg_renderer_object_handlers;
@@ -99,7 +95,7 @@ void init_agg_renderer(INIT_FUNC_ARGS)
 {
     zend_class_entry ce;
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "AggRenderer", agg_renderer_methods);
-    agg_renderer_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    agg_renderer_ce = zend_register_internal_class(&ce);
     agg_renderer_ce->create_object = create_agg_renderer;
 
     memcpy(&agg_renderer_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));

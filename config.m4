@@ -8,7 +8,7 @@ if test "$PHP_MAPNIK" != "no"; then
     AC_LANG_CPLUSPLUS
     PHP_REQUIRE_CXX()
     PHP_ADD_LIBRARY(stdc++, 1, MAPNIK_SHARED_LIBADD)
-    CPPFLAGS="$CPPFLAGS $INCLUDES -DHAVE_MAPNIK -std=c++11 -Wno-deprecated-register"
+    CPPFLAGS="$CPPFLAGS $INCLUDES -DHAVE_MAPNIK -std=c++11"
 
     dnl Check for mapnik-config. First try any path that was given to us, then look in $PATH
     AC_MSG_CHECKING([for mapnik-config])

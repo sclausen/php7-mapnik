@@ -17,7 +17,7 @@ PHP_METHOD(Box2D, __construct)
     if (ZEND_NUM_ARGS() == 0) {
         box2d = new mapnik::box2d<double>();
     } else {
-        ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 4, 4)
+        ZEND_PARSE_PARAMETERS_START(4, 4)
             Z_PARAM_DOUBLE(minX)
             Z_PARAM_DOUBLE(minY)
             Z_PARAM_DOUBLE(maxX)
@@ -61,7 +61,7 @@ PHP_METHOD(Box2D, maxY)
 
 // Reflection info
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_box2d_construct, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_box2d_construct, 0, 0, 0)
     ZEND_ARG_INFO(0, minX)
     ZEND_ARG_INFO(0, minY)
     ZEND_ARG_INFO(0, maxX)
@@ -81,19 +81,19 @@ zend_function_entry box2d_methods[] = {
 
 // Internal object handling
 
-void free_box2d(zend_object *object TSRMLS_DC)
+void free_box2d(zend_object *object)
 {
     box2d_object *obj;
     obj = fetch_box2d_object(object);
     delete obj->box2d;
-    zend_object_std_dtor(object TSRMLS_DC);
+    zend_object_std_dtor(object);
 }
 
-zend_object * create_box2d(zend_class_entry *ce TSRMLS_DC) {
+zend_object * create_box2d(zend_class_entry *ce) {
     box2d_object *intern;
     intern = (box2d_object*) ecalloc(1, sizeof(box2d_object) + zend_object_properties_size(ce));
 
-    zend_object_std_init(&intern->std, ce TSRMLS_CC);
+    zend_object_std_init(&intern->std, ce);
     object_properties_init(&intern->std, ce);
 
     intern->std.handlers = &box2d_object_handlers;
@@ -107,7 +107,7 @@ void init_box2d(INIT_FUNC_ARGS)
 {
     zend_class_entry ce;
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "Box2D", box2d_methods);
-    box2d_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    box2d_ce = zend_register_internal_class(&ce);
     box2d_ce->create_object = create_box2d;
 
     memcpy(&box2d_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
@@ -151,7 +151,7 @@ zval construct_box2d_zval(double minX, double minY, double maxX, double maxY)
         &ctor,
         &dummy_box2d_zval,
         4,
-        args TSRMLS_CC) == FAILURE
+        args) == FAILURE
     ) {
         throw_mapnik_exception("Creating Box2D return value failed");
     }

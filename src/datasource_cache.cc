@@ -15,7 +15,7 @@ PHP_METHOD(DatasourceCache, registerDatasources)
 {
     zend_string *path;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STR(path)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -37,7 +37,7 @@ PHP_METHOD(DatasourceCache, getPluginNames)
 
 // Reflection info
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_datasourceCache_registerDatasources, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_datasourceCache_registerDatasources, 0, 0, 1)
     ZEND_ARG_INFO(0, path)
 ZEND_END_ARG_INFO()
 
@@ -55,5 +55,5 @@ void init_datasource_cache(INIT_FUNC_ARGS)
 {
     zend_class_entry ce;
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "DatasourceCache", datasource_cache_methods);
-    datasource_cache_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    datasource_cache_ce = zend_register_internal_class(&ce);
 }

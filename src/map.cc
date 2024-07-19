@@ -19,7 +19,7 @@ PHP_METHOD(Map, __construct)
     zend_long width, height;
     zend_string *srs;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 0, 3)
+    ZEND_PARSE_PARAMETERS_START(0, 3)
         Z_PARAM_OPTIONAL
         Z_PARAM_LONG(width)
         Z_PARAM_LONG(height)
@@ -53,7 +53,7 @@ PHP_METHOD(Map, loadXmlString)
     zend_string *base_path;
     zend_bool strict = false;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 3)
+    ZEND_PARSE_PARAMETERS_START(1, 3)
         Z_PARAM_STR(xml)
         Z_PARAM_OPTIONAL
         Z_PARAM_BOOL(strict)
@@ -88,7 +88,7 @@ PHP_METHOD(Map, loadXmlFile)
     zend_string *base_path;
     zend_bool strict = false;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 3)
+    ZEND_PARSE_PARAMETERS_START(1, 3)
         Z_PARAM_STR(filename)
         Z_PARAM_OPTIONAL
         Z_PARAM_BOOL(strict)
@@ -120,7 +120,7 @@ PHP_METHOD(Map, zoom)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     double zoom;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(zoom)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -139,7 +139,7 @@ PHP_METHOD(Map, pan)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_long x, y;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 2, 2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_LONG(x)
         Z_PARAM_LONG(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -153,7 +153,7 @@ PHP_METHOD(Map, panAndZoom)
     zend_long x, y;
     double zoom;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 3, 3)
+    ZEND_PARSE_PARAMETERS_START(3, 3)
         Z_PARAM_LONG(x)
         Z_PARAM_LONG(y)
         Z_PARAM_DOUBLE(zoom)
@@ -168,7 +168,7 @@ PHP_METHOD(Map, zoomToBox)
     box2d_object *box2d_obj;
     zval* box2d_zval;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(box2d_zval, box2d_ce)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -182,7 +182,7 @@ PHP_METHOD(Map, registerFonts)
     zend_string *path;
     bool fonts_registered = false;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STR(path)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -216,7 +216,7 @@ PHP_METHOD(Map, setBasePath)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_string *path;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STR(path)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -235,7 +235,7 @@ PHP_METHOD(Map, setWidth)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_long width;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_LONG(width)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -254,7 +254,7 @@ PHP_METHOD(Map, setHeight)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_long height;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_LONG(height)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -266,7 +266,7 @@ PHP_METHOD(Map, resize)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_long width, height;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 2, 2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_LONG(width)
         Z_PARAM_LONG(height)
     ZEND_PARSE_PARAMETERS_END();
@@ -286,7 +286,7 @@ PHP_METHOD(Map, setSrs)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_string *srs;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STR(srs)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -308,7 +308,7 @@ PHP_METHOD(Map, setBackgroundImage)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_string *image_filename;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STR(image_filename)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -327,7 +327,7 @@ PHP_METHOD(Map, setBackgroundImageOpacity)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     double opacity;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(opacity)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -356,7 +356,7 @@ PHP_METHOD(Map, setMaximumExtent)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zval* box2d_zval;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(box2d_zval, box2d_ce)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -396,7 +396,7 @@ PHP_METHOD(Map, setBufferSize)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_long buffer_size;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_LONG(buffer_size)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -441,7 +441,7 @@ PHP_METHOD(Map, removeStyle)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_string *style;
 
-    if (::zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, "S", &style) == FAILURE) {
+    if (::zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS(), "S", &style) == FAILURE) {
         throw_mapnik_exception("Wrong arguments passed to \\Mapnik\\Map::removeStyle");
         return;
     }
@@ -466,7 +466,7 @@ PHP_METHOD(Map, setAspectFixMode)
     map_object *obj = Z_PHP_MAPNIK_MAP_P(getThis());
     zend_long aspect_fix_mode;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_LONG(aspect_fix_mode)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -480,85 +480,85 @@ PHP_METHOD(Map, setAspectFixMode)
 
 // Reflection info
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_construct, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_construct, 0, 0, 1)
     ZEND_ARG_INFO(0, width)
     ZEND_ARG_INFO(0, height)
     ZEND_ARG_INFO(0, srs)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_loadXmlString, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_loadXmlString, 0, 0, 1)
     ZEND_ARG_INFO(0, xml)
     ZEND_ARG_INFO(0, strict)
     ZEND_ARG_INFO(0, basePath)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_loadXmlFile, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_loadXmlFile, 0, 0, 1)
     ZEND_ARG_INFO(0, filename)
     ZEND_ARG_INFO(0, strict)
     ZEND_ARG_INFO(0, basePath)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_zoom, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_zoom, 0, 0, 1)
     ZEND_ARG_INFO(0, zoom)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_pan, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_pan, 0, 0, 2)
     ZEND_ARG_INFO(0, x)
     ZEND_ARG_INFO(0, y)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_panAndZoom, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 3)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_panAndZoom, 0, 0, 3)
     ZEND_ARG_INFO(0, x)
     ZEND_ARG_INFO(0, y)
     ZEND_ARG_INFO(0, zoom)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_zoomToBox, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_zoomToBox, 0, 0, 1)
     ZEND_ARG_OBJ_INFO(0, box2d, Mapnik\\Box2D, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_registerFonts, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_registerFonts, 0, 0, 1)
     ZEND_ARG_INFO(0, path)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBasePath, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBasePath, 0, 0, 1)
     ZEND_ARG_INFO(0, path)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setWidth, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setWidth, 0, 0, 1)
     ZEND_ARG_INFO(0, width)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setHeight, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setHeight, 0, 0, 1)
     ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_resize, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_resize, 0, 0, 2)
     ZEND_ARG_INFO(0, width)
     ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setSrs, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setSrs, 0, 0, 1)
     ZEND_ARG_INFO(0, srs)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBackgroundImage, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBackgroundImage, 0, 0, 1)
     ZEND_ARG_INFO(0, filename)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBackgroundImageOpacity, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBackgroundImageOpacity, 0, 0, 1)
     ZEND_ARG_INFO(0, opacity)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setMaximumExtent, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setMaximumExtent, 0, 0, 1)
     ZEND_ARG_OBJ_INFO(0, box2d, Mapnik\\Box2D, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBufferSize, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setBufferSize, 0, 0, 1)
     ZEND_ARG_INFO(0, bufferSize)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setAspectFixMode, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_map_setAspectFixMode, 0, 0, 1)
     ZEND_ARG_INFO(0, aspectFixMode)
 ZEND_END_ARG_INFO()
 
@@ -606,20 +606,20 @@ zend_function_entry map_methods[] = {
 
 // Internal object handling
 
-void free_map(zend_object *object TSRMLS_DC)
+void free_map(zend_object *object)
 {
     map_object *obj;
     obj = fetch_map_object(object);
     delete obj->map;
-    zend_object_std_dtor(object TSRMLS_DC);
+    zend_object_std_dtor(object);
 }
 
-zend_object * create_map(zend_class_entry *ce TSRMLS_DC)
+zend_object * create_map(zend_class_entry *ce)
 {
     map_object *intern;
     intern = (map_object*) ecalloc(1, sizeof(map_object) + zend_object_properties_size(ce));
 
-    zend_object_std_init(&intern->std, ce TSRMLS_CC);
+    zend_object_std_init(&intern->std, ce);
     object_properties_init(&intern->std, ce);
 
     intern->std.handlers = &map_object_handlers;
@@ -634,18 +634,18 @@ void init_map(INIT_FUNC_ARGS)
     zend_class_entry ce;
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "Map", map_methods);
 
-    map_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    map_ce = zend_register_internal_class(&ce);
     map_ce->create_object = create_map;
 
-    zend_declare_class_constant_long(map_ce, "GROW_BBOX", sizeof("GROW_BBOX") - 1, mapnik::Map::GROW_BBOX TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "GROW_CANVAS", sizeof("GROW_CANVAS") - 1, mapnik::Map::GROW_CANVAS TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "SHRINK_BBOX", sizeof("SHRINK_BBOX") - 1, mapnik::Map::SHRINK_BBOX TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "SHRINK_CANVAS", sizeof("SHRINK_CANVAS") - 1, mapnik::Map::SHRINK_CANVAS TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "ADJUST_BBOX_WIDTH", sizeof("ADJUST_BBOX_WIDTH") - 1, mapnik::Map::ADJUST_BBOX_WIDTH TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "ADJUST_BBOX_HEIGHT", sizeof("ADJUST_BBOX_HEIGHT") - 1, mapnik::Map::ADJUST_BBOX_HEIGHT TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "ADJUST_CANVAS_WIDTH", sizeof("ADJUST_CANVAS_WIDTH") - 1, mapnik::Map::ADJUST_CANVAS_WIDTH TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "ADJUST_CANVAS_HEIGHT", sizeof("ADJUST_CANVAS_HEIGHT") - 1, mapnik::Map::ADJUST_CANVAS_HEIGHT TSRMLS_CC);
-    zend_declare_class_constant_long(map_ce, "RESPECT", sizeof("RESPECT") - 1, mapnik::Map::RESPECT TSRMLS_CC);
+    zend_declare_class_constant_long(map_ce, "GROW_BBOX", sizeof("GROW_BBOX") - 1, mapnik::Map::GROW_BBOX);
+    zend_declare_class_constant_long(map_ce, "GROW_CANVAS", sizeof("GROW_CANVAS") - 1, mapnik::Map::GROW_CANVAS);
+    zend_declare_class_constant_long(map_ce, "SHRINK_BBOX", sizeof("SHRINK_BBOX") - 1, mapnik::Map::SHRINK_BBOX);
+    zend_declare_class_constant_long(map_ce, "SHRINK_CANVAS", sizeof("SHRINK_CANVAS") - 1, mapnik::Map::SHRINK_CANVAS);
+    zend_declare_class_constant_long(map_ce, "ADJUST_BBOX_WIDTH", sizeof("ADJUST_BBOX_WIDTH") - 1, mapnik::Map::ADJUST_BBOX_WIDTH);
+    zend_declare_class_constant_long(map_ce, "ADJUST_BBOX_HEIGHT", sizeof("ADJUST_BBOX_HEIGHT") - 1, mapnik::Map::ADJUST_BBOX_HEIGHT);
+    zend_declare_class_constant_long(map_ce, "ADJUST_CANVAS_WIDTH", sizeof("ADJUST_CANVAS_WIDTH") - 1, mapnik::Map::ADJUST_CANVAS_WIDTH);
+    zend_declare_class_constant_long(map_ce, "ADJUST_CANVAS_HEIGHT", sizeof("ADJUST_CANVAS_HEIGHT") - 1, mapnik::Map::ADJUST_CANVAS_HEIGHT);
+    zend_declare_class_constant_long(map_ce, "RESPECT", sizeof("RESPECT") - 1, mapnik::Map::RESPECT);
     
     memcpy(&map_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     map_object_handlers.offset = XtOffsetOf(struct map_object, std);

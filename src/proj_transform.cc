@@ -19,7 +19,7 @@ PHP_METHOD(ProjTransform, __construct)
     zval* source_zval;
     zval* destination_zval;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 2, 2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_OBJECT_OF_CLASS(source_zval, projection_ce)
         Z_PARAM_OBJECT_OF_CLASS(destination_zval, projection_ce)
     ZEND_PARSE_PARAMETERS_END();
@@ -40,7 +40,7 @@ PHP_METHOD(ProjTransform, forward)
 
     zval* box2d_zval;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(box2d_zval, box2d_ce)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -79,7 +79,7 @@ PHP_METHOD(ProjTransform, forward)
     ZVAL_DOUBLE(&maxY, box2d->maxy());
     args[3] = maxY;
 
-    // call_user_function(HashTable *function_table, zval **object_pp, zval *function_name, zval *retval_ptr, zend_uint param_count, zval *params[] TSRMLS_DC);
+    // call_user_function(HashTable *function_table, zval **object_pp, zval *function_name, zval *retval_ptr, zend_uint param_count, zval *params[]);
 
     if (call_user_function(
         NULL,
@@ -87,7 +87,7 @@ PHP_METHOD(ProjTransform, forward)
         &ctor,
         &dummy_return_value,
         4,
-        args TSRMLS_CC) == FAILURE
+        args) == FAILURE
     ) {
         throw_mapnik_exception("Creating Box2D return value failed");
         RETURN_FALSE;
@@ -104,7 +104,7 @@ PHP_METHOD(ProjTransform, backward)
 
     zval* box2d_zval;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(box2d_zval, box2d_ce)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -143,7 +143,7 @@ PHP_METHOD(ProjTransform, backward)
     ZVAL_DOUBLE(&maxY, box2d->maxy());
     args[3] = maxY;
 
-    // call_user_function(HashTable *function_table, zval **object_pp, zval *function_name, zval *retval_ptr, zend_uint param_count, zval *params[] TSRMLS_DC);
+    // call_user_function(HashTable *function_table, zval **object_pp, zval *function_name, zval *retval_ptr, zend_uint param_count, zval *params[]);
 
     if (call_user_function(
         NULL,
@@ -151,7 +151,7 @@ PHP_METHOD(ProjTransform, backward)
         &ctor,
         &dummy_return_value,
         4,
-        args TSRMLS_CC) == FAILURE
+        args) == FAILURE
     ) {
         throw_mapnik_exception("Creating Box2D return value failed");
         RETURN_FALSE;
@@ -164,16 +164,16 @@ PHP_METHOD(ProjTransform, backward)
 
 // Reflection info
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_projTransform_construct, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_projTransform_construct, 0, 0, 2)
     ZEND_ARG_INFO(0, source)
     ZEND_ARG_INFO(0, destination)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_projTransform_forward, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_projTransform_forward, 0, 0, 1)
     ZEND_ARG_INFO(0, box2d)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_projTransform_backward, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_projTransform_backward, 0, 0, 1)
     ZEND_ARG_INFO(0, box2d)
 ZEND_END_ARG_INFO()
 
@@ -188,19 +188,19 @@ zend_function_entry proj_transform_methods[] = {
 
 // Internal object handling
 
-void free_proj_transform(zend_object *object TSRMLS_DC)
+void free_proj_transform(zend_object *object)
 {
     proj_transform_object *obj;
     obj = fetch_proj_transform_object(object);
     delete obj->proj_transform;
-    zend_object_std_dtor(object TSRMLS_DC);
+    zend_object_std_dtor(object);
 }
 
-zend_object * create_proj_transform(zend_class_entry *ce TSRMLS_DC) {
+zend_object * create_proj_transform(zend_class_entry *ce) {
     proj_transform_object *intern;
     intern = (proj_transform_object*) ecalloc(1, sizeof(proj_transform_object) + zend_object_properties_size(ce));
 
-    zend_object_std_init(&intern->std, ce TSRMLS_CC);
+    zend_object_std_init(&intern->std, ce);
     object_properties_init(&intern->std, ce);
 
     intern->std.handlers = &proj_transform_object_handlers;
@@ -214,7 +214,7 @@ void init_proj_transform(INIT_FUNC_ARGS)
 {
     zend_class_entry ce;
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "ProjTransform", proj_transform_methods);
-    proj_transform_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    proj_transform_ce = zend_register_internal_class(&ce);
     proj_transform_ce->create_object = create_proj_transform;
 
     memcpy(&proj_transform_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));

@@ -9,11 +9,15 @@ void init_exception(INIT_FUNC_ARGS)
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "Exception", NULL);
     exception_ce = zend_register_internal_class_ex(
         &ce,
-        (zend_class_entry*) zend_exception_get_default(TSRMLS_C) TSRMLS_CC
+        (zend_class_entry*) zend_exception_get_default()
     );
 }
 
-void throw_mapnik_exception_with_message(const char *message, int code TSRMLS_DC)
+void throw_mapnik_exception_with_message(const char *message, int code)
 {
-    zend_throw_exception(exception_ce, (char*)message, code TSRMLS_CC);
+    zend_throw_exception(exception_ce, message, code);
 }
+
+zend_function_entry mapnik_functions[] = {
+    PHP_FE_END
+};

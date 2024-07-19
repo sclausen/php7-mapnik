@@ -14,7 +14,7 @@ PHP_METHOD(Projection, __construct)
 
     zend_string *parameters;
 
-    ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STR(parameters)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -34,7 +34,8 @@ PHP_METHOD(Projection, __construct)
 
 // Reflection info
 
-ZEND_BEGIN_ARG_INFO_EX(argInfo_projection_construct, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+// ZEND_BEGIN_ARG_INFO_EX(argInfo_projection_construct, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+ZEND_BEGIN_ARG_INFO_EX(argInfo_projection_construct, 0, 0, 1)
     ZEND_ARG_INFO(0, parameters)
 ZEND_END_ARG_INFO()
 
@@ -47,20 +48,20 @@ zend_function_entry projection_methods[] = {
 
 // Internal object handling
 
-void free_projection(zend_object *object TSRMLS_DC)
+void free_projection(zend_object *object)
 {
     projection_object *obj;
     obj = fetch_projection_object(object);
     delete obj->projection;
-    zend_object_std_dtor(object TSRMLS_DC);
+    zend_object_std_dtor(object);
 }
 
-zend_object * create_projection(zend_class_entry *ce TSRMLS_DC) {
+zend_object * create_projection(zend_class_entry *ce) {
     projection_object *intern;
     intern = (projection_object*)
         ecalloc(1, sizeof(projection_object) + zend_object_properties_size(ce));
 
-    zend_object_std_init(&intern->std, ce TSRMLS_CC);
+    zend_object_std_init(&intern->std, ce);
     object_properties_init(&intern->std, ce);
 
     intern->std.handlers = &projection_object_handlers;
@@ -74,7 +75,7 @@ void init_projection(INIT_FUNC_ARGS)
 {
     zend_class_entry ce;
     INIT_NS_CLASS_ENTRY(ce, "Mapnik", "Projection", projection_methods);
-    projection_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    projection_ce = zend_register_internal_class(&ce);
     projection_ce->create_object = create_projection;
 
     memcpy(&projection_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
